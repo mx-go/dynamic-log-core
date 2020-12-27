@@ -46,15 +46,21 @@ public class DynamicLogSelector implements ImportSelector {
     public String[] selectImports(AnnotationMetadata annotationMetadata) {
         // 获取注解的属性集合
         AnnotationAttributes attributes = AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(EnableDynamicLog.class.getName(), false));
-        String dataId = attributes.getString("dataId");
-        ConfigFactory.getInstance().registerListener(dataId, config -> {
-            Properties properties = RemoteConfig.convert(config).getAll();
-            // 设置logger的level
-            Set<String> currentLoggerNames = setAndGetLoggerNames(properties);
-            // 将已移除的logger的level修改为父logger的level
-            modifyRemovedLoggerLevel(currentLoggerNames);
-            LOGGER_NAMES = currentLoggerNames;
-        });
+        if (attributes != null) {
+            String dataId = attributes.getString("dataId");
+            if (StringUtils.isBlank(dataId)) {
+                LOGGER.error("EnableDynamicLog annotation dataId is empty, please check your config.");
+                return new String[0];
+            }
+            ConfigFactory.getInstance().registerListener(dataId, config -> {
+                Properties properties = RemoteConfig.convert(config).getAll();
+                // 设置logger的level
+                Set<String> currentLoggerNames = setAndGetLoggerNames(properties);
+                // 将已移除的logger的level修改为父logger的level
+                modifyRemovedLoggerLevel(currentLoggerNames);
+                LOGGER_NAMES = currentLoggerNames;
+            });
+        }
         return new String[0];
     }
 
