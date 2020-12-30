@@ -10,6 +10,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 直接到启动类上
+ * <p>
  * Create by max on 2020/12/15
  **/
 @Retention(RetentionPolicy.RUNTIME)
