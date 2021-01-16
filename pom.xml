@@ -14,7 +14,7 @@
     <version>1.0.0</version>
 
     <properties>
-        <nacos-core.version>1.0.0</nacos-core.version>
+        <nacos-core.version>1.0.1</nacos-core.version>
         <slfj-api.version>1.7.30</slfj-api.version>
     </properties>
 
