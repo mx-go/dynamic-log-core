@@ -11,10 +11,10 @@
 
     <groupId>com.github.mx-go</groupId>
     <artifactId>dynamic-log-core</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
-        <nacos-core.version>1.0.1</nacos-core.version>
+        <nacos-core.version>1.0.2</nacos-core.version>
         <slfj-api.version>1.7.30</slfj-api.version>
     </properties>
 
