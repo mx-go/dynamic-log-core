@@ -1,9 +1,9 @@
 package com.github.mx.dynamic.core;
 
+import com.alibaba.nacos.api.utils.StringUtils;
 import com.github.mx.dynamic.core.annotation.EnableDynamicLog;
 import com.github.mx.nacos.config.core.ConfigFactory;
 import com.github.mx.nacos.config.core.RemoteConfig;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
@@ -86,7 +86,7 @@ public class DynamicLogSelector implements ImportSelector {
     private Set<String> setAndGetLoggerNames(Properties properties) {
         Set<String> currentLoggerNames = new HashSet<>();
         properties.forEach((key, val) -> {
-            if (StringUtils.startsWithIgnoreCase(key.toString(), PREFIX)) {
+            if (org.springframework.util.StringUtils.startsWithIgnoreCase(key.toString(), PREFIX)) {
                 String loggerName = PREFIX.equalsIgnoreCase(key.toString()) ? ROOT : key.toString().substring(PREFIX.length());
                 setLogLevel(loggerName, val.toString());
                 log(loggerName, val.toString());
@@ -127,7 +127,7 @@ public class DynamicLogSelector implements ImportSelector {
             Method method = LOGGER.getClass().getMethod(loggerConfiguration.getEffectiveLevel().name().toLowerCase(), String.class, Object.class, Object.class);
             method.invoke(LOGGER, "changed {} log level to:{}", loggerName, level);
         } catch (Exception e) {
-            LOGGER.error("changed {} log level to:{} error", loggerName, level, e);
+            LOGGER.error("Changed {} log level to:{} error", loggerName, level, e);
         }
     }
 }
